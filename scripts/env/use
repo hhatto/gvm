@@ -20,6 +20,13 @@ function gvm_use() {
 		cp $GVM_ROOT/environments/$fuzzy_match $GVM_ROOT/environments/default || display_error "Couldn't make $fuzzy_match default"
 	fi
 
+    if [ -n "$_OLD_PS1" ]; then
+        export PS1=$_OLD_PS1
+        unset _OLD_PS1
+    fi
+    export _OLD_PS1=$PS1
+    export PS1="[gvm|$fuzzy_match@global]$PS1"
+
 	display_message "Now using version $fuzzy_match"
 }
 
